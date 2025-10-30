@@ -151,6 +151,7 @@ export const Home2 = () => {
 				users.map((ele) => {
 					return (
 						<div>
+							
 							<button key={ele.id} onClick={() => setUserName(ele.name)}>
 								<h6>{ele.name}</h6></button>
 						</div>

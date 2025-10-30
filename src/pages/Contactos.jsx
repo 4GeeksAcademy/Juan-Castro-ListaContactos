@@ -13,6 +13,7 @@ export const Contactos = () => {
     const [users, setUsers] = useState([])
     const [idToDelete, setIdToDelete] = useState("")
     const [usersCreate, setUsersCreate] = useState([])
+    const [Contacts, setContacts] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -152,15 +153,23 @@ export const Contactos = () => {
                 users.map((ele) => {
                     return (
                         <div key={ele.id}>
-                            <div onClick={() => setUserName(ele.slug)}>
-                                {ele.slug}
-                            </div>
                             
+
+                            {/* <div onClick={() => setUserName(ele.slug)}>
+                                {ele.slug}
+                            </div> */}
+                            {/* <button onClick={() => setUserName(ele.slug)}>{ele.slug} </button> */}
+
+
                         </div>
-                        
+
                     )
                 })
             }
+
+
+
+
             {/* <br />
             <br />
             <h5>Escribe el nombre de usuario o click en alguno de ellos</h5>
@@ -173,7 +182,7 @@ export const Contactos = () => {
             <h5>{result}</h5>
 
             <h3>Crea un nuevo usuario</h3>
-            <input type="text" onChange={(e) => setUsersCreate(e.target.value)} />
+            <input type="text"  onChange={(e) => setUsersCreate(e.target.value)} />
             <button onClick={() => handlerCreateUser(usersCreate)}>Crear tarea</button>
             <h5>{result}</h5>
 
