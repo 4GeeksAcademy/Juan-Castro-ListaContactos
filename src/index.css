@@ -1,0 +1,21 @@
+
+img{
+    width: 25vh;
+    align-items: start;
+    
+}
+
+.contactos{
+    display: flex;
+    padding: 5vh;
+    border: 2px dashed grey;
+}
+
+.nombrecontacto{
+
+}
+
+.iconos{
+    display: flex;
+    align-items: ;
+}

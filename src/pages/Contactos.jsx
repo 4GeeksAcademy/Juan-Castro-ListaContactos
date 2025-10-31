@@ -152,15 +152,18 @@ export const Contactos = () => {
                 users.length > 0 &&
                 users.map((ele) => {
                     return (
-                        <div key={ele.id}>
+
+                        <div className="contactos" key={ele.id}>
                             
+                            <img src="src/assets/img/cara.jpg" alt="cara de contacto" />
 
-                            {/* <div onClick={() => setUserName(ele.slug)}>
+                            <h4 className="nombrecontacto" onClick={() => setUserName(ele.slug)}>
                                 {ele.slug}
-                            </div> */}
+                            </h4>
                             {/* <button onClick={() => setUserName(ele.slug)}>{ele.slug} </button> */}
-
-
+                            <div className="iconos"><i class="fa-solid fa-user-pen"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
                         </div>
 
                     )
