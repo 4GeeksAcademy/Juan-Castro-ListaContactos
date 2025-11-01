@@ -41,7 +41,7 @@ export const Contactos = () => {
     const handlerClick = () => {
 
         if (userName == "") {
-            alert("tenes que escribir un nombre antes de navegar...")
+            
             return
         } else {
             navigate('/demo')
@@ -103,7 +103,7 @@ export const Contactos = () => {
         console.log(nombre, "este es el nombre")
 
         try {
-            let response = await fetch(`https://playground.4geeks.com/todo/users/${nombre}`, {
+            let response = await fetch(`https://playground.4geeks.com/contact/agendas/${nombre}`, {
                 method: "POST",
 
                 headers: {
@@ -146,8 +146,9 @@ export const Contactos = () => {
 
 
     return (
-        <div className="text-center mt-5">
-            {/* <button onClick={handlerClick}>Ir a demo si completaste el nombre</button> */}
+        // <div className="text-center mt-5">
+           
+           <button className="btn btn-success d-grid gap-2 d-md-flex justify-content-md-end" onClick={handlerClick}>Add New Contact</button>
             {
                 users.length > 0 &&
                 users.map((ele) => {
@@ -160,8 +161,9 @@ export const Contactos = () => {
                             <h4 className="nombrecontacto" onClick={() => setUserName(ele.slug)}>
                                 {ele.slug}
                             </h4>
-                            {/* <button onClick={() => setUserName(ele.slug)}>{ele.slug} </button> */}
-                            <div className="iconos"><i class="fa-solid fa-user-pen"></i>
+                           
+                            <div className="iconos" >
+                                <i class="fa-solid fa-user-pen"></i>
                                 <i class="fa-solid fa-trash"></i>
                             </div>
                         </div>

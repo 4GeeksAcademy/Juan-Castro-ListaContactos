@@ -1,21 +1,28 @@
-
-img{
+img {
     width: 25vh;
     align-items: start;
-    
+    border-radius: 50%;
+
 }
 
-.contactos{
+.contactos {
     display: flex;
     padding: 5vh;
-    border: 2px dashed grey;
-}
-
-.nombrecontacto{
+    border: 0.1vh solid lightgrey;
 
 }
 
-.iconos{
+.nombrecontacto {
     display: flex;
-    align-items: ;
+    border:red solid 0.1vh; 
 }
+
+.iconos {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-end;
+    width: auto;
+    height: auto;
+    border: blue solid 0.1vh;
+    margin-left: auto !important;
