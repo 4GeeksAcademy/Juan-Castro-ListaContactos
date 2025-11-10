@@ -41,14 +41,14 @@ export const Contactos = () => {
     const handlerClick = () => {
 
         if (userName == "") {
-            
+
             return
         } else {
-            navigate('/demo')
+            navigate('/home2')
         }
 
 
-        navigate('/demo')
+        navigate('/home')
     }
 
     const handlerCreate = async () => {
@@ -65,7 +65,7 @@ export const Contactos = () => {
         console.log("este es el payload: ", payload)
 
         try {
-            let response = await fetch(`https://playground.4geeks.com/contact/agenda/${userName}`, {
+            let response = await fetch(`https://playground.4geeks.com/contact/agenda/${usersCreate}`, {
                 method: "POST",
                 body: JSON.stringify(payload),
                 headers: {
@@ -124,9 +124,12 @@ export const Contactos = () => {
         }
     }
 
-    const handlerDeleteById = async () => {
+    const handlerDeleteById = async (id) => {
         try {
-            let response = await fetch(`https://playground.4geeks.com/todo/todos/${idToDelete}`, {
+            // if (!id) return
+            // if (!window.confirm(`¿Eliminar contacto con id ${id}?`)) return
+
+            let response = await fetch(`https://playground.4geeks.com/contact/agendas/${id}`, {
                 method: "DELETE"
             })
             if (!response.ok) {
@@ -134,37 +137,61 @@ export const Contactos = () => {
             }
 
             if (response.status === 204) {
-                alert(`El todo con id ${idToDelete}, fue eliminado`)
-                setIdToDelete("")
+                alert(`El contacto con id ${id} fue eliminado`)
+                // actualizar la lista local para reflejar el cambio sin recargar
+                setUsers(prev => prev.filter(u => u.id !== id))
+                // opcional: limpiar selección
+                if (idToDelete === id) setIdToDelete("")
             }
-
-
         } catch (error) {
-
+            console.error(error)
+            alert("Error al eliminar")
         }
     }
 
 
     return (
-        // <div className="text-center mt-5">
-           
-           <button className="btn btn-success d-grid gap-2 d-md-flex justify-content-md-end" onClick={handlerClick}>Add New Contact</button>
+        <div className="text-center mt-5">
+            <div className="btn-wrapper">
+                <button className="btn-right" onClick={handlerCreateUser}>Add New Contact</button>
+            </div>
+
             {
                 users.length > 0 &&
                 users.map((ele) => {
                     return (
 
                         <div className="contactos" key={ele.id}>
-                            
+
                             <img src="src/assets/img/cara.jpg" alt="cara de contacto" />
 
                             <h4 className="nombrecontacto" onClick={() => setUserName(ele.slug)}>
                                 {ele.slug}
                             </h4>
-                           
+
                             <div className="iconos" >
-                                <i class="fa-solid fa-user-pen"></i>
-                                <i class="fa-solid fa-trash"></i>
+                                <i className="fa-solid fa-user-pen"></i>
+                                <i className="fa-solid fa-trash " data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={handlerDeleteById} ></i>
+
+                                {/* Modal */}
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">"¿Eliminar el contacto {ele.i} ?"</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Seguro que quieres eliminarlo?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" onClick={() => handlerDeleteById(ele.id)}>Eliminar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
