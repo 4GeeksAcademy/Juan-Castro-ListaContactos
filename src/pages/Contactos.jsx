@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 export const Contactos = () => {
@@ -12,22 +11,22 @@ export const Contactos = () => {
     const [result, setResult] = useState(0)
     const [users, setUsers] = useState([])
     const [idToDelete, setIdToDelete] = useState("")
-    const [usersCreate, setUsersCreate] = useState([])
     const [Contacts, setContacts] = useState([])
+    const [userid, setUserid] = useState("")
     const navigate = useNavigate()
 
     useEffect(() => {
 
         let getUsers = async () => {
             try {
-                let response = await fetch("https://playground.4geeks.com/contact/agendas")
+                let response = await fetch("https://playground.4geeks.com/contact/agendas/juanxo/contacts")
                 if (!response.ok) {
                     throw new Error("Error ahora...")
                 }
                 let data = await response.json()
-                console.log("ESTA ES LA DATA ENTRANTE: ", data.agendas);
+                console.log("ESTA ES LA DATA ENTRANTE: ", data.contacts);
 
-                setUsers(data.agendas)
+                setUsers(data.contacts)
 
             } catch (error) {
                 console.error(error)
@@ -50,44 +49,6 @@ export const Contactos = () => {
 
         navigate('/home')
     }
-
-    const handlerCreate = async () => {
-
-        if (todo && todo.length < 10) {
-            alert("La tarea tiene que tener por lo menos 10 caracteres.")
-            return
-        }
-
-        let payload = {
-            label: todo,
-            is_done: false
-        }
-        console.log("este es el payload: ", payload)
-
-        try {
-            let response = await fetch(`https://playground.4geeks.com/contact/agenda/${usersCreate}`, {
-                method: "POST",
-                body: JSON.stringify(payload),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            // if(!response.ok){
-            // 	throw new Error("Falso positivo")
-            // }
-
-            let data = await response.json()
-            setResult(data.id)
-
-        } catch (error) {
-            console.error(error)
-            alert("algo malió sal")
-        }
-    }
-
-    console.log(usersCreate);
-
 
     const handlerCreateUser = async (nombre) => {
 
@@ -129,7 +90,7 @@ export const Contactos = () => {
             // if (!id) return
             // if (!window.confirm(`¿Eliminar contacto con id ${id}?`)) return
 
-            let response = await fetch(`https://playground.4geeks.com/contact/agendas/${id}`, {
+            let response = await fetch(`https://playground.4geeks.com/contact/agendas/juanxo/contacts/${id}`, {
                 method: "DELETE"
             })
             if (!response.ok) {
@@ -153,9 +114,10 @@ export const Contactos = () => {
     return (
         <div className="text-center mt-5">
             <div className="btn-wrapper">
-                <button className="btn-right" onClick={handlerCreateUser}>Add New Contact</button>
+                <Link to="/form">
+                    <button className="btn-right">Add New Contact</button>
+                </Link>
             </div>
-
             {
                 users.length > 0 &&
                 users.map((ele) => {
@@ -165,9 +127,20 @@ export const Contactos = () => {
 
                             <img src="src/assets/img/cara.jpg" alt="cara de contacto" />
 
-                            <h4 className="nombrecontacto" onClick={() => setUserName(ele.slug)}>
-                                {ele.slug}
+                            <h4 className="nombrecontacto" onClick={() => setUserId(ele.id)}>
+                                {ele.name}
+                                <p>
+                                    <i class="fa-solid fa-location-dot"></i> {ele.address}
+                                </p>
+                                <p>
+                                    <i class="fa-solid fa-phone"></i>{ele.phone}
+                                </p>
+                                <p>
+                                    <i class="fa-solid fa-envelope"></i>{ele.email}
+                                </p>
+
                             </h4>
+
 
                             <div className="iconos" >
                                 <i className="fa-solid fa-user-pen"></i>

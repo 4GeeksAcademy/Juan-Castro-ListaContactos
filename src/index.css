@@ -14,6 +14,8 @@ img {
 
 .nombrecontacto {
     display: flex;
+    flex-direction: column;
+    text-align: start !important;
     border:red solid 0.1vh; 
 }
 

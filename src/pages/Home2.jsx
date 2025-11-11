@@ -131,6 +131,7 @@ export const Home2 = () => {
 				}
 				let data = await response.json()
 				setUsers(data.users)
+				console.log(data)
 				return data
 			} catch (error) {
 				console.error(error)
