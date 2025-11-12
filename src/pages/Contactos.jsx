@@ -7,7 +7,6 @@ export const Contactos = () => {
     const { store, dispatch } = useGlobalReducer()
 
     const [userName, setUserName] = useState("")
-    const [todo, setTodo] = useState("")
     const [result, setResult] = useState(0)
     const [users, setUsers] = useState([])
     const [idToDelete, setIdToDelete] = useState("")
@@ -37,53 +36,6 @@ export const Contactos = () => {
 
     }, [])
 
-    const handlerClick = () => {
-
-        if (userName == "") {
-
-            return
-        } else {
-            navigate('/home2')
-        }
-
-
-        navigate('/home')
-    }
-
-    const handlerCreateUser = async (nombre) => {
-
-        // if (usersCreate && usersCreate.length < 10) {
-        // 	alert("La tarea tiene que tener por lo menos 10 caracteres.")
-        // 	return
-        // }
-
-        let payload = {
-            label: todo,
-            is_done: false
-        }
-        console.log(nombre, "este es el nombre")
-
-        try {
-            let response = await fetch(`https://playground.4geeks.com/contact/agendas/${nombre}`, {
-                method: "POST",
-
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            // if(!response.ok){
-            // 	throw new Error("Falso positivo")
-            // }
-
-            let data = await response.json()
-            setResult(nombre.id)
-
-        } catch (error) {
-            console.error(error)
-            alert("algo malió sal")
-        }
-    }
 
     const handlerDeleteById = async (id) => {
         try {
@@ -98,7 +50,7 @@ export const Contactos = () => {
             }
 
             if (response.status === 204) {
-                alert(`El contacto con id ${id} fue eliminado`)
+                
                 // actualizar la lista local para reflejar el cambio sin recargar
                 setUsers(prev => prev.filter(u => u.id !== id))
                 // opcional: limpiar selección
@@ -106,8 +58,9 @@ export const Contactos = () => {
             }
         } catch (error) {
             console.error(error)
-            alert("Error al eliminar")
+            
         }
+       
     }
 
 
@@ -151,7 +104,7 @@ export const Contactos = () => {
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">"¿Eliminar el contacto {ele.i} ?"</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">"¿Eliminar el contacto {} ?"</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">

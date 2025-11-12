@@ -4,16 +4,15 @@ export const Form = () => {
 
     const { store, dispatch } = useGlobalReducer()
     const [result ,setResult] = useState("")
-    const [usersCreate, setUsersCreate] = useState([])
+    const [usersCreate, setUsersCreate] = useState({})
+    const [datosContact, setDatosContact] = useState({})
 
-    const handlerCreateUser = async (nombre) => {          
+    const handlerCreateUser = async () => {          
         try {
-            let response = await fetch(`https://playground.4geeks.com/contact/agendas/${nombre}/contacts`, {
+            let response = await fetch(`https://playground.4geeks.com/contact/agendas/juanxo/contacts`, {
                 method: "POST"
 
-                // headers: {
-                //     'Content-Type': 'application/json'
-                // }
+              
             })
 
             if(!response.ok){
@@ -31,8 +30,11 @@ export const Form = () => {
 
     return (
         <div className="text-center mt-5">
-            <h3>Crea un nuevo usuario</h3>
-            <input type="text" onChange={(e) => setUsersCreate(e.target.value)} />
+            <h3 >Crea un nuevo usuario</h3>
+            <input type="text" onChange={(e) => setUsersCreate(e.target.value.name)} placeholder="Nombre" />
+            <input type="phone" onChange={(e) => setUsersCreate(e.target.value.phone)} placeholder="Telefono" />
+            <input type="email" onChange={(e) => setUsersCreate(e.target.value.email)} placeholder="Email" />
+            <input type="text" onChange={(e) => setUsersCreate(e.target.value.address)} placeholder="Direccion" />
             <button onClick={() => handlerCreateUser(usersCreate)}>Crear usuario</button>
             {/* <h5>{result}</h5> */}
 
