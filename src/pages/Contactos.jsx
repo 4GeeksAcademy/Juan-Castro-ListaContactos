@@ -6,11 +6,9 @@ export const Contactos = () => {
 
     const { store, dispatch } = useGlobalReducer()
 
-    const [userName, setUserName] = useState("")
-    const [result, setResult] = useState(0)
+
     const [users, setUsers] = useState([])
     const [idToDelete, setIdToDelete] = useState("")
-    const [Contacts, setContacts] = useState([])
     const [userid, setUserid] = useState("")
     const navigate = useNavigate()
 
@@ -39,8 +37,6 @@ export const Contactos = () => {
 
     const handlerDeleteById = async (id) => {
         try {
-            // if (!id) return
-            // if (!window.confirm(`¿Eliminar contacto con id ${id}?`)) return
 
             let response = await fetch(`https://playground.4geeks.com/contact/agendas/juanxo/contacts/${id}`, {
                 method: "DELETE"
@@ -50,7 +46,7 @@ export const Contactos = () => {
             }
 
             if (response.status === 204) {
-                
+
                 // actualizar la lista local para reflejar el cambio sin recargar
                 setUsers(prev => prev.filter(u => u.id !== id))
                 // opcional: limpiar selección
@@ -58,9 +54,9 @@ export const Contactos = () => {
             }
         } catch (error) {
             console.error(error)
-            
+
         }
-       
+
     }
 
 
@@ -80,16 +76,16 @@ export const Contactos = () => {
 
                             <img src="src/assets/img/cara.jpg" alt="cara de contacto" />
 
-                            <h4 className="nombrecontacto" onClick={() => setUserId(ele.id)}>
+                            <h4 className="nombrecontacto" onClick={() => setUserid(ele.id)}>
                                 {ele.name}
                                 <p>
-                                    <i class="fa-solid fa-location-dot"></i> {ele.address}
+                                    <i className="fa-solid fa-location-dot"></i> {ele.address}
                                 </p>
                                 <p>
-                                    <i class="fa-solid fa-phone"></i>{ele.phone}
+                                    <i className="fa-solid fa-phone"></i>{ele.phone}
                                 </p>
                                 <p>
-                                    <i class="fa-solid fa-envelope"></i>{ele.email}
+                                    <i className="fa-solid fa-envelope"></i>{ele.email}
                                 </p>
 
                             </h4>
@@ -97,22 +93,29 @@ export const Contactos = () => {
 
                             <div className="iconos" >
                                 <i className="fa-solid fa-user-pen"></i>
-                                <i className="fa-solid fa-trash " data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={handlerDeleteById} ></i>
 
-                                {/* Modal */}
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">"¿Eliminar el contacto {} ?"</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <i
+                                    className="fa-solid fa-trash"
+                                    data-bs-toggle="modal"
+                                    data-bs-target={`#exampleModal-${ele.id}`}
+                                    onClick={() => setIdToDelete(ele.id)}
+                                ></i>
+
+
+                                <div className="modal fade" id={`exampleModal-${ele.id}`} tabIndex="-1" aria-labelledby={`exampleModalLabel-${ele.id}`} aria-hidden="true">
+                                    <div className="modal-dialog">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h1 className="modal-title fs-5" id={`exampleModalLabel-${ele.id}`}>¿Eliminar el contacto {ele.name}?</h1>
+                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
+                                            <div className="modal-body">
                                                 ¿Seguro que quieres eliminarlo?
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary" onClick={() => handlerDeleteById(ele.id)}>Eliminar</button>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                                <button type="button" className="btn btn-primary" onClick={() => handlerDeleteById(idToDelete || ele.id)} data-bs-dismiss="modal">Eliminar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -125,32 +128,6 @@ export const Contactos = () => {
                 })
             }
 
-
-
-
-            {/* <br />
-            <br />
-            <h5>Escribe el nombre de usuario o click en alguno de ellos</h5>
-            <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
-            <br />
-            <br />
-            <h3>Crea una tarea para algun usuario</h3>
-            <input type="text" onChange={(e) => setTodo(e.target.value)} />
-            <button onClick={handlerCreate}>Crear tarea</button>
-            <h5>{result}</h5>
-
-            <h3>Crea un nuevo usuario</h3>
-            <input type="text"  onChange={(e) => setUsersCreate(e.target.value)} />
-            <button onClick={() => handlerCreateUser(usersCreate)}>Crear tarea</button>
-            <h5>{result}</h5>
-
-
-
-            <br />
-            <br />
-            <h5>Area para eliminar por id</h5>
-            <input type="text" value={idToDelete && idToDelete} onChange={(e) => setIdToDelete(e.target.value)} />
-            <button onClick={handlerDeleteById}>Eliminar</button> */}
         </div>
     );
 };
