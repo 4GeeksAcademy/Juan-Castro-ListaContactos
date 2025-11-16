@@ -15,19 +15,22 @@ img {
 .nombrecontacto {
     display: flex;
     flex-direction: column;
-    text-align: start !important;
-    border:red solid 0.1vh; 
+    text-align: start !important; 
 }
 
 .iconos {
     display: flex;
-    gap: 1rem;
-    align-items: center;
+    gap: 5rem;
+    align-items: start;
     justify-content: flex-end;
-    width: auto;
-    height: auto;
-    border: blue solid 0.1vh;
     margin-left: auto !important;
+
+}
+
+.datos-contact p {
+    padding: auto;
+    text-align: start !important;
+    
 }
 
 .btn-right {

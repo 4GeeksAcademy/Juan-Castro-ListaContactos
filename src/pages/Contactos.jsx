@@ -76,20 +76,19 @@ export const Contactos = () => {
 
                             <img src="src/assets/img/cara.jpg" alt="cara de contacto" />
 
-                            <h4 className="nombrecontacto" onClick={() => setUserid(ele.id)}>
-                                {ele.name}
+                            <div className="datos-contact">
+                                <h4 className="nombrecontacto" onClick={() => setUserid(ele.id)}>
+                                {ele.name}</h4>
                                 <p>
-                                    <i className="fa-solid fa-location-dot"></i> {ele.address}
+                                    <i className="fa-solid fa-location-dot contact-icon"></i> {ele.address}
                                 </p>
                                 <p>
-                                    <i className="fa-solid fa-phone"></i>{ele.phone}
+                                    <i className="fa-solid fa-phone contact-icon" ></i> {ele.phone}
                                 </p>
                                 <p>
-                                    <i className="fa-solid fa-envelope"></i>{ele.email}
-                                </p>
-
-                            </h4>
-
+                                    <i className="fa-solid fa-envelope contact-icon"></i> {ele.email}
+                                </p>                        
+                            </div>
 
                             <div className="iconos" >
                                 <i className="fa-solid fa-user-pen"></i>
