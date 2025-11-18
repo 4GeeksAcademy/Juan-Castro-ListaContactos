@@ -9,6 +9,7 @@ export const Contactos = () => {
 
     const [users, setUsers] = useState([])
     const [idToDelete, setIdToDelete] = useState("")
+    const [idToEdit, setIdToEdit] = useState("")
     const [userid, setUserid] = useState("")
     const navigate = useNavigate()
 
@@ -46,10 +47,8 @@ export const Contactos = () => {
             }
 
             if (response.status === 204) {
-
-                // actualizar la lista local para reflejar el cambio sin recargar
+                
                 setUsers(prev => prev.filter(u => u.id !== id))
-                // opcional: limpiar selección
                 if (idToDelete === id) setIdToDelete("")
             }
         } catch (error) {
