@@ -55,6 +55,12 @@ img {
     justify-content: flex-end;
     margin-bottom: 2vh;
 }
+.form-column h1 {
+   text-align: center;
+   
+    
+    
+}
 
 .form-column {
     display: flex;

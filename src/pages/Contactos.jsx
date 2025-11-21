@@ -5,8 +5,6 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 export const Contactos = () => {
 
     const { store, dispatch } = useGlobalReducer()
-
-
     const [users, setUsers] = useState([])
     const [idToDelete, setIdToDelete] = useState("")
     const [idToEdit, setIdToEdit] = useState("")
@@ -76,8 +74,7 @@ export const Contactos = () => {
                             <img src="src/assets/img/cara.jpg" alt="cara de contacto" />
 
                             <div className="datos-contact">
-                                <h4 className="nombrecontacto" onClick={() => setUserid(ele.id)}>
-                                {ele.name}</h4>
+                                <h4 className="nombrecontacto">{ele.name}</h4>
                                 <p>
                                     <i className="fa-solid fa-location-dot contact-icon"></i> {ele.address}
                                 </p>
@@ -90,7 +87,8 @@ export const Contactos = () => {
                             </div>
 
                             <div className="iconos" >
-                                <i className="fa-solid fa-user-pen"></i>
+                                <i className="fa-solid fa-user-pen"
+                                onClick={() => setIdToEdit(ele.id)}></i>
 
                                 <i
                                     className="fa-solid fa-trash"
