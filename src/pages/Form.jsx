@@ -60,69 +60,7 @@ export const Form = () => {
             alert("Error: " + (error.message || "Algo salió mal"));
         }
     }
-    // const [result, setResult] = useState("")
-    // const [usersCreate, setUsersCreate] = useState({
-    //     name: "",
-    //     email: "",
-    //     phone: "",
-    //     address: ""
-    // })
-    // const [usersEdit, setUserEdit] = useState({
-    //     name: "",
-    //     email: "",
-    //     phone: "",
-    //     address: ""
-    // })
-
-
-    // const handlerCreateUser = async () => {
-    //     try {
-    //         if (!usersCreate.name.trim() || !usersCreate.email.trim() || !usersCreate.phone.trim() || !usersCreate.address.trim()) {
-    //             alert("Por favor completa todos los campos");
-    //             return;
-    //         }
-
-    //         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //         if (!emailRegex.test(usersCreate.email)) {
-    //             alert("Por favor ingresa un email válido");
-    //             return;
-    //         }
-
-    //         if (!/^\d+$/.test(usersCreate.phone.replace(/[\s\-]/g, ""))) {
-    //             alert("Por favor ingresa un teléfono válido (solo números)");
-    //             return;
-    //         }
-
-    //         const body = {
-    //             name: usersCreate.name,
-    //             email: usersCreate.email,
-    //             phone: usersCreate.phone,
-    //             address: usersCreate.address,
-    //             agenda_slug: "juanxo"
-    //         }
-
-    //         let response = await fetch(`https://playground.4geeks.com/contact/agendas/juanxo/contacts`, {
-    //             method: "POST",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify(body)
-    //         })
-
-    //         if (!response.ok) {
-    //             throw new Error("Falso positivo")
-    //         }
-
-    //         let data = await response.json()
-    //         setResult(`Creado: ${data.name || "ok"}`)
-    //         setUsersCreate({ full_name: "", email: "", phone: "", address: "" })
-    //         navigate("/");
-
-    //     } catch (error) {
-    //         console.error(error)
-    //         alert("algo salio mal")
-    //     }
-    // }
-
-    return (
+     return (
         <div className="form-page mt-5">
             <div className="form-column">
                 <h1>Crea un nuevo usuario</h1>

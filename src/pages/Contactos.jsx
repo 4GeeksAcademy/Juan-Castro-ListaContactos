@@ -8,7 +8,6 @@ export const Contactos = () => {
     const [users, setUsers] = useState([])
     const [idToDelete, setIdToDelete] = useState("")
     const [idToEdit, setIdToEdit] = useState("")
-    const [userid, setUserid] = useState("")
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -45,7 +44,7 @@ export const Contactos = () => {
             }
 
             if (response.status === 204) {
-                
+
                 setUsers(prev => prev.filter(u => u.id !== id))
                 if (idToDelete === id) setIdToDelete("")
             }
@@ -83,17 +82,17 @@ export const Contactos = () => {
                                 </p>
                                 <p>
                                     <i className="fa-solid fa-envelope contact-icon"></i> {ele.email}
-                                </p>                        
+                                </p>
                             </div>
 
                             <div className="iconos" >
-                               <i
+                                <i
                                     className="fa-solid fa-user-pen"
                                     onClick={() => {
                                         setIdToEdit(ele.id);
                                         navigate("/form", { state: { contact: ele } });
                                     }}
-                               ></i>
+                                ></i>
 
                                 <i
                                     className="fa-solid fa-trash"
