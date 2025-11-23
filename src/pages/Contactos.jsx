@@ -87,8 +87,13 @@ export const Contactos = () => {
                             </div>
 
                             <div className="iconos" >
-                                <i className="fa-solid fa-user-pen"
-                                onClick={() => setIdToEdit(ele.id)}></i>
+                               <i
+                                    className="fa-solid fa-user-pen"
+                                    onClick={() => {
+                                        setIdToEdit(ele.id);
+                                        navigate("/form", { state: { contact: ele } });
+                                    }}
+                               ></i>
 
                                 <i
                                     className="fa-solid fa-trash"

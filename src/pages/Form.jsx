@@ -1,42 +1,36 @@
 // ...existing code...
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+
 export const Form = () => {
+    
     const navigate = useNavigate();
-    const [result, setResult] = useState("")
+    const location = useLocation();
+    const [result, setResult] = useState("");
+    const [editingId, setEditingId] = useState(null);
     const [usersCreate, setUsersCreate] = useState({
         name: "",
         email: "",
         phone: "",
         address: ""
     })
-    const [usersEdit, setUserEdit] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        address: ""
-    })
-
+    
+    useEffect(() => {
+        const contact = location.state?.contact;
+        if (contact) {
+            setUsersCreate({
+                name: contact.name || "",
+                email: contact.email || "",
+                phone: contact.phone || "",
+                address: contact.address || ""
+            });
+            setEditingId(contact.id);
+        }
+    }, [location.state]);
 
     const handlerCreateUser = async () => {
         try {
-            if (!usersCreate.name.trim() || !usersCreate.email.trim() || !usersCreate.phone.trim() || !usersCreate.address.trim()) {
-                alert("Por favor completa todos los campos");
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(usersCreate.email)) {
-                alert("Por favor ingresa un email válido");
-                return;
-            }
-
-            if (!/^\d+$/.test(usersCreate.phone.replace(/[\s\-]/g, ""))) {
-                alert("Por favor ingresa un teléfono válido (solo números)");
-                return;
-            }
-
             const body = {
                 name: usersCreate.name,
                 email: usersCreate.email,
@@ -45,26 +39,88 @@ export const Form = () => {
                 agenda_slug: "juanxo"
             }
 
-            let response = await fetch(`https://playground.4geeks.com/contact/agendas/juanxo/contacts`, {
-                method: "POST",
+            const url = editingId
+                ? `https://playground.4geeks.com/contact/agendas/juanxo/contacts/${editingId}`
+                : `https://playground.4geeks.com/contact/agendas/juanxo/contacts`;
+
+            const method = editingId ? "PUT" : "POST";
+
+            let response = await fetch(url, {
+                method,
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
-            })
+            });
 
-            if (!response.ok) {
-                throw new Error("Falso positivo")
-            }
+            if (!response.ok) throw new Error("Error en la petición");
 
-            let data = await response.json()
-            setResult(`Creado: ${data.name || "ok"}`)
-            setUsersCreate({ full_name: "", email: "", phone: "", address: "" })
+            await response.json();
             navigate("/");
-
         } catch (error) {
-            console.error(error)
-            alert("algo salio mal")
+            console.error(error);
+            alert("Error: " + (error.message || "Algo salió mal"));
         }
     }
+    // const [result, setResult] = useState("")
+    // const [usersCreate, setUsersCreate] = useState({
+    //     name: "",
+    //     email: "",
+    //     phone: "",
+    //     address: ""
+    // })
+    // const [usersEdit, setUserEdit] = useState({
+    //     name: "",
+    //     email: "",
+    //     phone: "",
+    //     address: ""
+    // })
+
+
+    // const handlerCreateUser = async () => {
+    //     try {
+    //         if (!usersCreate.name.trim() || !usersCreate.email.trim() || !usersCreate.phone.trim() || !usersCreate.address.trim()) {
+    //             alert("Por favor completa todos los campos");
+    //             return;
+    //         }
+
+    //         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //         if (!emailRegex.test(usersCreate.email)) {
+    //             alert("Por favor ingresa un email válido");
+    //             return;
+    //         }
+
+    //         if (!/^\d+$/.test(usersCreate.phone.replace(/[\s\-]/g, ""))) {
+    //             alert("Por favor ingresa un teléfono válido (solo números)");
+    //             return;
+    //         }
+
+    //         const body = {
+    //             name: usersCreate.name,
+    //             email: usersCreate.email,
+    //             phone: usersCreate.phone,
+    //             address: usersCreate.address,
+    //             agenda_slug: "juanxo"
+    //         }
+
+    //         let response = await fetch(`https://playground.4geeks.com/contact/agendas/juanxo/contacts`, {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify(body)
+    //         })
+
+    //         if (!response.ok) {
+    //             throw new Error("Falso positivo")
+    //         }
+
+    //         let data = await response.json()
+    //         setResult(`Creado: ${data.name || "ok"}`)
+    //         setUsersCreate({ full_name: "", email: "", phone: "", address: "" })
+    //         navigate("/");
+
+    //     } catch (error) {
+    //         console.error(error)
+    //         alert("algo salio mal")
+    //     }
+    // }
 
     return (
         <div className="form-page mt-5">
